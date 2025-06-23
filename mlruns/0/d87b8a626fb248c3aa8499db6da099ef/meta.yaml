@@ -1,0 +1,14 @@
+artifact_uri: file:///home/psychohunter/Documents/e2eml/e2e/mlruns/0/d87b8a626fb248c3aa8499db6da099ef/artifacts
+end_time: 1750670643464
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: d87b8a626fb248c3aa8499db6da099ef
+run_name: wistful-donkey-448
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750670640167
+status: 3
+tags: []
+user_id: psychohunter

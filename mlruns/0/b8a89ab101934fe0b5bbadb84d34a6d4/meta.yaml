@@ -1,0 +1,14 @@
+artifact_uri: file:///home/psychohunter/Documents/e2eml/e2e/mlruns/0/b8a89ab101934fe0b5bbadb84d34a6d4/artifacts
+end_time: 1750670505012
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: b8a89ab101934fe0b5bbadb84d34a6d4
+run_name: kindly-fowl-163
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750670504873
+status: 4
+tags: []
+user_id: psychohunter

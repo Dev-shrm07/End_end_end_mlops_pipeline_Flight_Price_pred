@@ -1,0 +1,14 @@
+artifact_uri: file:///home/psychohunter/Documents/e2eml/e2e/mlruns/0/8843ec6b79034bc9982746a6e4f813b6/artifacts
+end_time: 1750670302862
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 8843ec6b79034bc9982746a6e4f813b6
+run_name: puzzled-horse-650
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750670299263
+status: 3
+tags: []
+user_id: psychohunter

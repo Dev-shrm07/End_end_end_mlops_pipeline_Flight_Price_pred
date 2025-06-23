@@ -1,0 +1,10 @@
+artifact_location: file:///home/psychohunter/Documents/e2eml/e2e/mlruns/0/models/m-42947b71c7fd4b15985dc01cc15d5467/artifacts
+creation_timestamp: 1750670640201
+experiment_id: '0'
+last_updated_timestamp: 1750670643462
+model_id: m-42947b71c7fd4b15985dc01cc15d5467
+model_type: null
+name: model
+source_run_id: d87b8a626fb248c3aa8499db6da099ef
+status: 2
+status_message: null
