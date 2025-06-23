@@ -1,0 +1,8 @@
+[ 2025-06-23 15:46:14,466 ] 92 root - INFO - Reading the raw data
+[ 2025-06-23 15:46:14,606 ] 95 root - INFO - Removing nulls and missing values without any imputatuion since there are almost 0
+[ 2025-06-23 15:46:14,606 ] 97 root - INFO - Removing outliers on the data using iqr method
+[ 2025-06-23 15:46:14,715 ] 77 root - INFO - Rows removed: 123 During outlier removal using iqr method
+[ 2025-06-23 15:46:16,094 ] 73 root - INFO - Numerical columns to be scaled are duration days_left
+[ 2025-06-23 15:46:16,094 ] 74 root - INFO - Categorical columns to be encoded are airline flight source_city departure_time stops arrival_time destination_city class
+[ 2025-06-23 15:46:16,094 ] 79 root - INFO - Preprocessing object created
+[ 2025-06-23 15:46:16,817 ] 89 root - INFO - Preprocessor Saved

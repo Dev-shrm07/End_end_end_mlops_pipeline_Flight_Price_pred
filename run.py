@@ -9,5 +9,5 @@ if __name__ == "__main__":
     P = DataPreprocssing()
     X,Y = P.preprocess_data()
     m = ModelTrainer()
-    m.initiate_model_trainer(X,Y)
+   # m.initiate_model_trainer(X,Y)
    # ,airline,flight,source_city,departure_time,stops,arrival_time,destination_city,class,duration,days_left,price
