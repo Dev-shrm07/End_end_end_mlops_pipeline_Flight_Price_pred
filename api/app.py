@@ -25,13 +25,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/")
+async def getHome():
+    return {"Welcome"}
+
 
 @app.post("/api/price_prediction")
 async def getPricePrediction(input_data:InputData):
     try:
         df = df = pd.DataFrame([input_data.dict()])
         df.rename(columns={'Class':'class'},inplace=True)
-        cols = ['airline','flight','source_city','departure_time','stops','arrival_time','destination_city','class','duration','days_left']
+        cols = ['airline','source_city','departure_time','stops','arrival_time','destination_city','class','duration','days_left']
         df = df[cols]
         results = predict_pipeline.predict(df)
         return {"price":results[0]}

@@ -87,7 +87,7 @@ class DataIngestion:
         try:
             
             df = pd.read_csv(self.raw_data_file_path)
-            df.drop(columns={'Unnamed: 0'},inplace=True)
+            df.drop(columns=['Unnamed: 0','flight'],inplace=True)
 
             logging.info("Reading the raw data")
             

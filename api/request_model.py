@@ -2,7 +2,6 @@ from pydantic import BaseModel
 
 class InputData(BaseModel):
     airline: str
-    flight: str
     source_city: str
     departure_time: str
     stops: str
