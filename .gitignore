@@ -2,3 +2,11 @@ __pycache__/
 .venv/
 mlruns/
 artifacts/airflow_pipeline/
+.env
+airflow/airflow.db
+airflow/logs/
+airflow/airflow.cfg
+logs/
+airflow/simple_auth_manager_passwords.json.generated
+data/raw/
+data/processed/

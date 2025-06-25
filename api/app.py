@@ -1,14 +1,14 @@
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from api.request_model import InputData
 from src.components.predict_pipeline import PredictPipeline
 import pandas as pd
 import uvicorn
-import sys
-import os
 
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 predict_pipeline = PredictPipeline()
 

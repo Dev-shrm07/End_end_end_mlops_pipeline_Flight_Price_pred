@@ -1,5 +1,7 @@
 from airflow import DAG
 from airflow.providers.standard.operators.python import PythonOperator
+from airflow.operators.python import BranchPythonOperator
+from airflow.operators.empty import EmptyOperator
 from datetime import datetime, timedelta
 import joblib
 import os
@@ -11,6 +13,7 @@ try:
     from src.components.data_ingestion import DataIngestion
     from src.components.data_preprocessing import DataPreprocssing
     from src.components.model_training import ModelTrainer
+    from src.components.data_collection import getData
 except ImportError:
     dag_dir = os.path.dirname(os.path.abspath(__file__))
     project_root = os.path.dirname(os.path.dirname(dag_dir)) 
@@ -18,16 +21,25 @@ except ImportError:
     from src.components.data_ingestion import DataIngestion
     from src.components.data_preprocessing import DataPreprocssing
     from src.components.model_training import ModelTrainer
+    from src.components.data_collection import getData
 
 
 
 DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 'artifacts', 'airflow_pipeline')
-os.makedirs(DATA_DIR)
 
-
+def check_data():
+    result = getData()
+    if result:
+        return 'ingest_data'
+    else:
+        return 'skip_ingestion'
+    
+    
 def ingest_data():
     d = DataIngestion()
     d.ingest_data()
+    
+
 
 def preprocess_data():
     P = DataPreprocssing()
@@ -61,6 +73,11 @@ with DAG(
     catchup=False,
     tags=['ml_pipeline'],
 ) as dag:
+    
+    branch = BranchPythonOperator(
+        task_id='check_data',
+        python_callable=check_data
+    )
 
     ingest = PythonOperator(
         task_id='ingest_data',
@@ -76,6 +93,11 @@ with DAG(
         task_id='train_model',
         python_callable=train_model
     )
+    
+    
 
     
+    skip = EmptyOperator(task_id='skip_ingestion')
+    
+    branch >> [ingest, skip]
     ingest >> preprocess >> train
