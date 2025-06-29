@@ -7,9 +7,11 @@ from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from src.exception import CustomException
 from src.logger import logging
-from src.utils import save_object
-import stats
 import os
+path_to_add = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(path_to_add)
+from src.components.handles3 import save_pickle_to_s3
+
 
 
 
@@ -80,11 +82,10 @@ class DataPreprocssing:
             
             X_normalized = preprocessing_obj.fit_transform(X)
 
-            save_object(
-
-                file_path=self.preprocessor_file_path,
-                obj=preprocessing_obj
-            )
+            save_pickle_to_s3(bucket_name="raws3e2eml",s3_key="models/preprocessor.pkl",obj=preprocessing_obj)
+            
+            
+            os.remove(self.processed_data_file)
             
             logging.info("Preprocessor Saved")
             

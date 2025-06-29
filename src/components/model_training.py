@@ -20,8 +20,13 @@ from xgboost import XGBRegressor
 
 from src.exception import CustomException
 from src.logger import logging
-from src.utils import save_object,evaluate_models
+from src.utils import evaluate_models
 from scipy.sparse import issparse
+import os
+path_to_add = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(path_to_add)
+from src.components.handles3 import save_pickle_to_s3
+
 
 @dataclass
 class ModelConfig:
@@ -52,55 +57,55 @@ class ModelTrainer:
            
             
             models = {
-                # "Random Forest": RandomForestRegressor(),
-                # "Decision Tree": DecisionTreeRegressor(),
-                # "Gradient Boosting": GradientBoostingRegressor(),
+                "Random Forest": RandomForestRegressor(),
+                "Decision Tree": DecisionTreeRegressor(),
+                "Gradient Boosting": GradientBoostingRegressor(),
                 "Linear Regression": LinearRegression(),
-                # "XGBRegressor": XGBRegressor(),
-                # "CatBoosting Regressor": CatBoostRegressor(verbose=False),
-                # "AdaBoost Regressor": AdaBoostRegressor(),
+                "XGBRegressor": XGBRegressor(),
+                "CatBoosting Regressor": CatBoostRegressor(verbose=False),
+                "AdaBoost Regressor": AdaBoostRegressor(),
             }
             params = {
-                # "Decision Tree": {
-                #     'criterion': ['squared_error', 'friedman_mse', 'absolute_error', 'poisson'],
-                #     'max_depth': [3, 5, 7, 10, None],
-                #     'min_samples_split': [2, 5, 10],
-                #     'min_samples_leaf': [1, 2, 4]
-                # },
-                # "Random Forest": {
-                #     'n_estimators': [8, 16, 32, 64, 128, 256],
-                #     'max_depth': [3, 5, 7, 10, None],
-                #     'min_samples_split': [2, 5, 10],
-                #     'max_features': ['sqrt', 'log2']
-                # },
-                # "Gradient Boosting": {
-                #     'learning_rate': [.1, .01, .05, .001],
-                #     'subsample': [0.6, 0.7, 0.75, 0.8, 0.85, 0.9],
-                #     'n_estimators': [8, 16, 32, 64, 128, 256],
-                #     'max_depth': [3, 5, 7]
-                # },
+                "Decision Tree": {
+                    'criterion': ['squared_error', 'friedman_mse', 'absolute_error', 'poisson'],
+                    'max_depth': [3, 5, 7, 10, None],
+                    'min_samples_split': [2, 5, 10],
+                    'min_samples_leaf': [1, 2, 4]
+                },
+                "Random Forest": {
+                    'n_estimators': [8, 16, 32, 64, 128, 256],
+                    'max_depth': [3, 5, 7, 10, None],
+                    'min_samples_split': [2, 5, 10],
+                    'max_features': ['sqrt', 'log2']
+                },
+                "Gradient Boosting": {
+                    'learning_rate': [.1, .01, .05, .001],
+                    'subsample': [0.6, 0.7, 0.75, 0.8, 0.85, 0.9],
+                    'n_estimators': [8, 16, 32, 64, 128, 256],
+                    'max_depth': [3, 5, 7]
+                },
                 "Linear Regression": {
                     'fit_intercept': [True, False],
                     'copy_X': [True, False]
                 },
-                # "XGBRegressor": {
-                #     'learning_rate': [.1, .01, .05, .001],
-                #     'n_estimators': [8, 16, 32, 64, 128, 256],
-                #     'max_depth': [3, 5, 7],
-                #     'subsample': [0.6, 0.8, 1.0],
-                #     'colsample_bytree': [0.6, 0.8, 1.0]
-                # },
-                # "CatBoosting Regressor": {
-                #     'depth': [6, 8, 10],
-                #     'learning_rate': [0.01, 0.05, 0.1],
-                #     'iterations': [30, 50, 100],
-                #     'l2_leaf_reg': [1, 3, 5]
-                # },
-                # "AdaBoost Regressor": {
-                #     'learning_rate': [.1, .01, 0.5, .001],
-                #     'n_estimators': [8, 16, 32, 64, 128, 256],
-                #     'loss': ['linear', 'square', 'exponential']
-                # }
+                "XGBRegressor": {
+                    'learning_rate': [.1, .01, .05, .001],
+                    'n_estimators': [8, 16, 32, 64, 128, 256],
+                    'max_depth': [3, 5, 7],
+                    'subsample': [0.6, 0.8, 1.0],
+                    'colsample_bytree': [0.6, 0.8, 1.0]
+                },
+                "CatBoosting Regressor": {
+                    'depth': [6, 8, 10],
+                    'learning_rate': [0.01, 0.05, 0.1],
+                    'iterations': [30, 50, 100],
+                    'l2_leaf_reg': [1, 3, 5]
+                },
+                "AdaBoost Regressor": {
+                    'learning_rate': [.1, .01, 0.5, .001],
+                    'n_estimators': [8, 16, 32, 64, 128, 256],
+                    'loss': ['linear', 'square', 'exponential']
+                }
             }
 
             model_report:dict=evaluate_models(X_train,y_train,X_test,y_test,models,params)
@@ -149,11 +154,8 @@ class ModelTrainer:
 
             logging.info("Best found model on both training and testing dataset")
 
-            save_object(
-                file_path=self.model_file_path,
-                obj=best_model
-            )
-
+            
+            save_pickle_to_s3(obj=best_model, bucket_name="raws3e2eml",s3_key="models/model.pkl")
             predicted = best_model.predict(X_test)
             r2_square = r2_score(y_test, predicted)
             return r2_square

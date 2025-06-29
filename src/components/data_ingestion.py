@@ -2,12 +2,8 @@ import sys
 from dataclasses import dataclass
 import numpy as np
 import pandas as pd
-from sklearn.preprocessing import OneHotEncoder, StandardScaler
-from sklearn.compose import ColumnTransformer
-from sklearn.pipeline import Pipeline
 from src.exception import CustomException
 from src.logger import logging
-from src.utils import save_object
 import stats
 import os
 
@@ -98,6 +94,8 @@ class DataIngestion:
             df_clean = self.remove_outliers(df, method=outlier_method, threshold=outlier_threshold)
             
             df_clean.to_csv(self.processed_data_file,index=False)
+            
+            os.remove(self.raw_data_file_path)
             
 
 

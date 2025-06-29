@@ -48,9 +48,10 @@ def preprocess_data():
     
 
 def train_model():
-    X, Y = joblib.load(os.path.join(DATA_DIR, 'XY.pkl'))
+    X, Y = joblib.load()
     m = ModelTrainer()
     m.initiate_model_trainer(X, Y)
+    os.remove(os.path.join(DATA_DIR, 'XY.pkl'))
 
 
 default_args = {
