@@ -8,7 +8,17 @@ echo "MLflow started! Webserver: http://localhost:5000"
 
 export AIRFLOW_HOME=$(pwd)/airflow
 export AIRFLOW__CORE__LOAD_EXAMPLES=False
+export AIRFLOW__CORE__AUTH_MANAGER=airflow.providers.fab.auth_manager.fab_auth_manager.FabAuthManager
+
 airflow db migrate
+
+airflow users create \
+  --username airflow \
+  --firstname Airflow \
+  --lastname Admin \
+  --email airflow@example.com \
+  --role Admin \
+  --password "$AIRFLOW_PASSWORD"   
 
 
 airflow api-server --host 0.0.0.0 --port 8080 &
@@ -31,5 +41,4 @@ trap "echo 'Stopping all services...'; \
 
 
 wait $MLFLOW_UI_PID $AIRFLOW_WEBSERVER_PID $AIRFLOW_SCHEDULER_PID $AIRFLOW_DAG_PROCESSOR_PID $API_PID
-
 
