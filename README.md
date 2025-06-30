@@ -1,6 +1,6 @@
-# ✈️ Flight Price Prediction – End-to-End ML Pipeline
+#  End-to-End ML Pipeline – Flight Price Prediction
 
-This project is a full-scale **end-to-end machine learning pipeline** for predicting flight prices. It's designed with modularity, scalability, and production-readiness in mind, using orchestration, experiment tracking, and real-time model serving.
+This project is a full-scale **end-to-end machine learning pipeline** for predicting flight prices. It's designed with modularity, scalability, and production-readiness in mind, using orchestration, experiment tracking, CI-CD and real-time model serving.
 
 ---
 
