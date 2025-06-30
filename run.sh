@@ -1,6 +1,6 @@
 #!/bin/bash
 
-
+## Only running API service as of now on EC2 due to ram issues, to run mlflow and airflow uncomment subsequent commands.
 # mlflow ui --host 0.0.0.0 --port 5000 &
 # MLFLOW_UI_PID=$!
 # echo "MLflow started! Webserver: http://localhost:5000"
