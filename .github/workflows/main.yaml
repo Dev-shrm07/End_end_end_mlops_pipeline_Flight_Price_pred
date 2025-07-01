@@ -52,3 +52,15 @@ jobs:
           tags: ${{ secrets.DOCKER_USERNAME }}/e2e_ml:latest
           
           
+      - name: Deploy Image
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          script: |
+                  sudo docker pull ${{ secrets.DOCKER_USERNAME }}/e2e_ml:latest
+                  sudo docker stop e2e_ml || true
+                  sudo docker rm e2e_ml || true
+                  sudo docker run -d --name e2e_ml -p 8000:8000 ${{ secrets.DOCKER_USERNAME }}/e2e_ml:latest

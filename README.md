@@ -85,7 +85,7 @@ mlflow ui
 - Can be deployed to **AWS EC2** (or ECS) using shell or Terraform scripts.
 - Example deployment (currently only API live due to RAM constraints on free tier):
 
-🔗 **Live API Endpoint:** [http://](API)
+🔗 **Live API Endpoint:** [http://13.127.118.148:8000/api/price_prediction](/api/price_prediction)
 
 ---
 
