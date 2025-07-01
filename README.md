@@ -143,6 +143,15 @@ E2E/
   "price": 3456.78
 }
 ```
+## Airflow Web Server
+
+![Airflow web server](https://github.com/user-attachments/assets/9913856c-7230-403a-90b6-75789080d012)
+
+![Airflow DAGs](https://github.com/user-attachments/assets/e3642a3e-f4ad-4cfb-9287-0bb56f0560e7)
+
+## MLflow UI
+
+![Mlflow UI](https://github.com/user-attachments/assets/ee800d81-e990-4574-878b-de860eb2be9b)
 
 ## 🧠 Tech Stack
 
